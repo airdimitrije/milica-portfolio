@@ -594,13 +594,14 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
         }
 
         .popup-item:hover {
             transform: scale(1.05);
         }
 
-        .popup-item img {
+        .popup-item img, .popup-item video {
             width: 100%;
             height: 250px;
             object-fit: cover;
@@ -625,6 +626,93 @@
         .popup-item p {
             font-size: 14px;
             opacity: 0.8;
+        }
+
+        /* Image Modal */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .image-modal-content {
+            max-width: 30vw;
+            max-height: 50vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-modal-close:hover {
+            transform: scale(1.1);
+        }
+
+        .image-modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 215, 0, 0.8);
+            color: var(--dark);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-modal-nav:hover {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .image-modal-prev {
+            left: -60px;
+        }
+
+        .image-modal-next {
+            right: -60px;
         }
 
         /* Video Section */
@@ -1020,6 +1108,15 @@
             .popup-grid {
                 grid-template-columns: 1fr;
             }
+
+            .image-modal-nav {
+                display: none;
+            }
+
+            .image-modal-content {
+                max-width: 90vw;
+                max-height: 75vh;
+            }
         }
 
         /* Scroll animations */
@@ -1130,7 +1227,7 @@
                     <div class="stat-label">Uspješnih projekata</div>
                 </div>
                 <div class="stat-item animate-on-scroll">
-                    <div class="stat-number">6+</div>
+                    <div class="stat-number">9+</div>
                     <div class="stat-label">Zadovoljnih klijenata</div>
                 </div>
                 <div class="stat-item animate-on-scroll">
@@ -1239,6 +1336,42 @@
                         </div>
                     </div>
                 </div>
+                <div class="portfolio-item animate-on-scroll">
+                    <img src="./slike/nasledje.jpg" alt="Rakija Nasleđe" class="portfolio-image">
+                    <div class="portfolio-content">
+                        <h3>Rakija Nasleđe</h3>
+                        <p>Kreativni brending tradicionalnih žestokih pića kroz autentičnu priču i vizuelni identitet</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Brand Identity</span>
+                            <span class="tag">Traditional</span>
+                            <span class="tag">Video Content</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item animate-on-scroll">
+                    <img src="./slike/kala.jpg" alt="Kala Beauty" class="portfolio-image">
+                    <div class="portfolio-content">
+                        <h3>Kala Beauty Studio</h3>
+                        <p>Elegantna prezentacija beauty salona sa fokusom na profesionalnost i kvalitet usluga</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Beauty</span>
+                            <span class="tag">Video Production</span>
+                            <span class="tag">Branding</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item animate-on-scroll">
+                    <img src="./slike/olgica.jpg" alt="Beauty by Olgica" class="portfolio-image">
+                    <div class="portfolio-content">
+                        <h3>Beauty by Olgica</h3>
+                        <p>Kompletna vizuelna transformacija beauty brenda sa modernim pristupom i kreativnim sadržajem</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Beauty Branding</span>
+                            <span class="tag">Social Media</span>
+                            <span class="tag">Content Creation</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1253,7 +1386,7 @@
             <div class="video-grid">
                 <div class="video-item animate-on-scroll">
                     <div class="video-container">
-                        <video class="video-player" controls poster="./slike/nasledje-thumbnail.jpg">
+                        <video class="video-player" controls>
                             <source src="./video/nasledje.mp4" type="video/mp4">
                             Vaš pregljednik ne podržava video element.
                         </video>
@@ -1271,7 +1404,7 @@
                 </div>
                 <div class="video-item animate-on-scroll">
                     <div class="video-container">
-                        <video class="video-player" controls poster="./slike/kala-thumbnail.jpg">
+                        <video class="video-player" controls>
                             <source src="./video/kalabeauty.mp4" type="video/mp4">
                             Vaš pregljednik ne podržava video element.
                         </video>
@@ -1289,7 +1422,7 @@
                 </div>
                 <div class="video-item animate-on-scroll">
                     <div class="video-container">
-                        <video class="video-player" controls poster="./slike/trening-thumbnail.jpg">
+                        <video class="video-player" controls>
                             <source src="./video/trening.mp4" type="video/mp4">
                             Vaš pregljednik ne podržava video element.
                         </video>
@@ -1307,7 +1440,7 @@
                 </div>
                 <div class="video-item animate-on-scroll">
                     <div class="video-container">
-                        <video class="video-player" controls poster="./slike/skincare-thumbnail.jpg">
+                        <video class="video-player" controls>
                             <source src="./video/skincare.mp4" type="video/mp4">
                             Vaš pregljednik ne podržava video element.
                         </video>
@@ -1419,35 +1552,35 @@
             <button class="popup-close" onclick="closePopup()">&times;</button>
             <h2 class="popup-title">Magični pokloni - Portfolio galerija</h2>
             <div class="popup-grid">
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/ninaposter.png', 0)">
                     <img src="./slike/ninaposter.png" alt="Nina poster">
                     <div class="popup-item-overlay">
                         <h4>Nina - Kreativni poster</h4>
                         <p>Personalizovani poster dizajn sa modernim pristupom</p>
                     </div>
                 </div>
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/radojeposter.png', 1)">
                     <img src="./slike/radojeposter.png" alt="Radoje poster">
                     <div class="popup-item-overlay">
                         <h4>Radoje - Sports poster</h4>
                         <p>Dinamičan sportski poster koji inspirira</p>
                     </div>
                 </div>
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/birthdayposter.png', 2)">
                     <img src="./slike/birthdayposter.png" alt="Birthday poster">
                     <div class="popup-item-overlay">
                         <h4>Birthday Boy - Viktor</h4>
                         <p>Zabavni rođendanski poster sa kreativnim pristupom</p>
                     </div>
                 </div>
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/ivanaposter.png', 3)">
                     <img src="./slike/ivanaposter.png" alt="Ivana poster">
                     <div class="popup-item-overlay">
                         <h4>Ivana Raičković</h4>
                         <p>Profesionalni rukometni poster dizajn</p>
                     </div>
                 </div>
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/milicaposter.png', 4)">
                     <img src="./slike/milicaposter.png" alt="Milica poster">
                     <div class="popup-item-overlay">
                         <h4>Milica - Personal brand</h4>
@@ -1464,21 +1597,21 @@
             <button class="popup-close" onclick="closeMoracaPopup()">&times;</button>
             <h2 class="popup-title">KK Morača - Sportska galerija</h2>
             <div class="popup-grid">
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/gameday.png', 0, 'moraca')">
                     <img src="./slike/gameday.png" alt="Game Day poster">
                     <div class="popup-item-overlay">
                         <h4>Game Day - Superliga</h4>
                         <p>Profesionalni event poster za košarkašku utakmicu</p>
                     </div>
                 </div>
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/gameday2.png', 1, 'moraca')">
                     <img src="./slike/gameday2.png" alt="Game Day varijanta">
                     <div class="popup-item-overlay">
                         <h4>Game Day - Alternativni dizajn</h4>
                         <p>Kreativna varijanta sa drugačijim pristupom</p>
                     </div>
                 </div>
-                <div class="popup-item">
+                <div class="popup-item" onclick="openImageModal('./slike/gameday4.png', 2, 'moraca')">
                     <img src="./slike/gameday4.png" alt="Game Day finalni">
                     <div class="popup-item-overlay">
                         <h4>Game Day - Finalni turnir</h4>
@@ -1496,6 +1629,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="image-modal-content">
+            <button class="image-modal-close" onclick="closeImageModal()">&times;</button>
+            <button class="image-modal-nav image-modal-prev" onclick="navigateImage(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="image-modal-nav image-modal-next" onclick="navigateImage(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <img id="modalImage" src="" alt="">
         </div>
     </div>
 
@@ -1601,6 +1748,25 @@
             });
         }
 
+        // Gallery data
+        const galleryImages = {
+            magicni: [
+                './slike/ninaposter.png',
+                './slike/radojeposter.png',
+                './slike/birthdayposter.png',
+                './slike/ivanaposter.png',
+                './slike/milicaposter.png'
+            ],
+            moraca: [
+                './slike/gameday.png',
+                './slike/gameday2.png',
+                './slike/gameday4.png'
+            ]
+        };
+
+        let currentImageIndex = 0;
+        let currentGallery = 'magicni';
+
         // Popup Gallery Functions
         function openPopup() {
             const popup = document.getElementById('popupOverlay');
@@ -1627,6 +1793,39 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Image Modal Functions
+        function openImageModal(imageSrc, index, gallery = 'magicni') {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            currentImageIndex = index;
+            currentGallery = gallery;
+            
+            modalImage.src = imageSrc;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigateImage(direction) {
+            const images = galleryImages[currentGallery];
+            currentImageIndex += direction;
+            
+            if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            } else if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            }
+            
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = images[currentImageIndex];
+        }
+
         // Close popup when clicking outside
         document.getElementById('popupOverlay').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -1640,11 +1839,27 @@
             }
         });
 
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
         // Close popup with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closePopup();
                 closeMoracaPopup();
+                closeImageModal();
+            }
+            
+            // Navigate images with arrow keys
+            if (document.getElementById('imageModal').classList.contains('show')) {
+                if (e.key === 'ArrowLeft') {
+                    navigateImage(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateImage(1);
+                }
             }
         });
 
